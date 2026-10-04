@@ -1,0 +1,39 @@
+{
+  "menu": [
+    {
+      "name": "Greek Salad",
+      "price": 12.99,
+      "description": "Crisp cucumber, tomatoes, olives and feta, finished with oregano.",
+      "image": "greekSalad.jpg",
+      "category": "starters"
+    },
+    {
+      "name": "Bruschetta",
+      "price": 7.99,
+      "description": "Toasted bread with ripe tomato, garlic and a little olive oil.",
+      "image": "bruschetta.jpg",
+      "category": "starters"
+    },
+    {
+      "name": "Grilled Fish",
+      "price": 20,
+      "description": "Fresh fish grilled simply with lemon, herbs and sea salt.",
+      "image": "grilledFish.jpg",
+      "category": "mains"
+    },
+    {
+      "name": "Pasta",
+      "price": 6.99,
+      "description": "House pasta tossed with a bright tomato and herb sauce.",
+      "image": "pasta.jpg",
+      "category": "mains"
+    },
+    {
+      "name": "Lemon Dessert",
+      "price": 4.99,
+      "description": "A soft, sunny lemon cake with a delicate citrus glaze.",
+      "image": "lemonDessert.jpg",
+      "category": "desserts"
+    }
+  ]
+}
