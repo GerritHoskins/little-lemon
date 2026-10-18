@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { router } from 'expo-router';
-import { BrandMark } from '../src/components/BrandMark';
-import { useAppData } from '../src/context/AppDataContext';
-import type { GuestProfile } from '../src/types';
-import { colors, spacing } from '../src/theme';
+import { BrandMark } from '../components/BrandMark';
+import { useAppData } from '../context/AppDataContext';
+import type { GuestProfile } from '../types';
+import { colors, spacing } from '../theme';
 
 export default function OnboardingScreen() {
   const { profile, saveProfile } = useAppData();
@@ -23,7 +22,6 @@ export default function OnboardingScreen() {
       specialOffers: false,
     };
     await saveProfile(nextProfile);
-    router.replace('/home');
   }
 
   return (

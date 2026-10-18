@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
-import { useAppData } from '../src/context/AppDataContext';
-import { BrandMark } from '../src/components/BrandMark';
-import { colors } from '../src/theme';
+import { useAppData } from '../context/AppDataContext';
+import { BrandMark } from '../components/BrandMark';
+import { colors } from '../theme';
 
 export default function IndexScreen() {
   const { ready, profile } = useAppData();

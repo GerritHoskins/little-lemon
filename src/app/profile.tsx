@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { AppShell } from '../src/components/AppShell';
-import { useAppData } from '../src/context/AppDataContext';
-import type { GuestProfile } from '../src/types';
-import { colors, spacing } from '../src/theme';
+import { AppShell } from '../components/AppShell';
+import { useAppData } from '../context/AppDataContext';
+import type { GuestProfile } from '../types';
+import { colors, spacing } from '../theme';
 
 export default function ProfileScreen() {
-  const { profile, saveProfile } = useAppData();
+  const { profile, saveProfile, logout } = useAppData();
   const [draft, setDraft] = useState<GuestProfile | null>(() => profile ? { ...profile } : null);
   const [saved, setSaved] = useState(false);
 
@@ -56,6 +56,9 @@ export default function ProfileScreen() {
             {!saved ? <Text style={styles.saveArrow}>→</Text> : null}
           </Pressable>
           <Text style={styles.privacyNote}>Your profile is saved locally on this device.</Text>
+          <Pressable accessibilityRole="button" onPress={logout} style={styles.logoutButton}>
+            <Text style={styles.logoutText}>Log out</Text>
+          </Pressable>
           <Text style={styles.footer}>GOOD FOOD, GOOD MOOD, GOOD COMPANY.</Text>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -108,5 +111,7 @@ const styles = StyleSheet.create({
   saveButtonText: { color: colors.darkGreen, fontSize: 14, fontWeight: '800' },
   saveArrow: { color: colors.darkGreen, fontSize: 21, fontWeight: '600' },
   privacyNote: { color: colors.muted, fontSize: 11, textAlign: 'center', marginTop: 12 },
+  logoutButton: { minHeight: 48, alignItems: 'center', justifyContent: 'center', borderRadius: 14, borderWidth: 1, borderColor: colors.line, marginTop: 18 },
+  logoutText: { color: colors.red, fontWeight: '800', fontSize: 14 },
   footer: { color: colors.muted, fontSize: 9, fontWeight: '700', letterSpacing: 1.4, textAlign: 'center', marginTop: 21 },
 });

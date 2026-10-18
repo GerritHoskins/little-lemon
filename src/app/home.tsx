@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { Alert, FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { AppShell } from '../src/components/AppShell';
-import { useAppData } from '../src/context/AppDataContext';
-import type { Category, MenuItem } from '../src/types';
-import { colors, spacing } from '../src/theme';
+import { AppShell } from '../components/AppShell';
+import { useAppData } from '../context/AppDataContext';
+import type { Category, MenuItem } from '../types';
+import { colors, spacing } from '../theme';
 
 type Filter = 'all' | Category;
 
@@ -45,26 +45,25 @@ export default function HomeScreen() {
               </Pressable>
             </View>
             <View style={styles.hero}>
-              <View style={styles.heroCopy}>
-                <Text style={styles.heroEyebrow}>A LITTLE SUNSHINE IN CHICAGO</Text>
-                <Text style={styles.heroTitle}>Little Lemon</Text>
-                <Text style={styles.heroText}>Mediterranean favorites, made fresh and shared with love.</Text>
+              <Text style={styles.heroTitle}>Little Lemon</Text>
+              <Text style={styles.heroLocation}>Chicago</Text>
+              <View style={styles.heroRow}>
+                <Text style={styles.heroText}>We are a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</Text>
+                <Image source={require('../../assets/hero.png')} style={styles.heroImage} accessibilityLabel="Fresh Mediterranean dishes from the Little Lemon kitchen" />
               </View>
-              <View style={styles.lemonArt}><Text style={styles.lemonEmoji}>🍋</Text><Text style={styles.lemonLeaf}>✦</Text></View>
-              <Text style={styles.location}>⌖  Chicago, Illinois</Text>
-            </View>
-            <View style={styles.searchWrap}>
-              <Text style={styles.searchIcon}>⌕</Text>
-              <TextInput
-                accessibilityLabel="Search the menu"
-                value={query}
-                onChangeText={setQuery}
-                placeholder="Find something delicious"
-                placeholderTextColor="#8C9690"
-                style={styles.searchInput}
-                autoCapitalize="none"
-                clearButtonMode="while-editing"
-              />
+              <View style={styles.searchWrap}>
+                <Text style={styles.searchIcon}>⌕</Text>
+                <TextInput
+                  accessibilityLabel="Search the menu"
+                  value={query}
+                  onChangeText={setQuery}
+                  placeholder="Find something delicious"
+                  placeholderTextColor="#8C9690"
+                  style={styles.searchInput}
+                  autoCapitalize="none"
+                  clearButtonMode="while-editing"
+                />
+              </View>
             </View>
             <View style={styles.sectionHeadingRow}>
               <View><Text style={styles.sectionTitle}>Order for delivery</Text><Text style={styles.sectionCaption}>A few favorites from our kitchen</Text></View>
@@ -108,7 +107,7 @@ function MenuRow({ item, onAdd }: { item: MenuItem; onAdd: () => void }) {
         {imageFailed ? (
           <View style={[styles.dishImage, styles.imageFallback]}><Text style={styles.imageEmoji}>🍋</Text></View>
         ) : (
-          <Image source={{ uri: item.image }} onError={() => setImageFailed(true)} style={styles.dishImage} accessibilityLabel={`${item.name} menu photo`} />
+          <Image source={item.name === 'Lemon Dessert' ? require('../../assets/lemon-dessert.jpg') : { uri: item.image }} onError={() => setImageFailed(true)} style={styles.dishImage} accessibilityLabel={`${item.name} menu photo`} />
         )}
         <Pressable accessibilityRole="button" accessibilityLabel={`Add ${item.name} to order`} onPress={onAdd} style={styles.addButton}><Text style={styles.addButtonText}>+</Text></Pressable>
       </View>
@@ -123,15 +122,12 @@ const styles = StyleSheet.create({
   bagButton: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 6, paddingHorizontal: 10, backgroundColor: colors.paper, borderRadius: 12, borderWidth: 1, borderColor: colors.line },
   bagIcon: { color: colors.green, fontSize: 17 },
   bagCount: { color: colors.green, fontSize: 12, fontWeight: '800' },
-  hero: { minHeight: 180, position: 'relative', overflow: 'hidden', backgroundColor: colors.green, borderRadius: 22, paddingHorizontal: 20, paddingTop: 20, paddingBottom: 17 },
-  heroCopy: { maxWidth: '73%', zIndex: 1 },
-  heroEyebrow: { color: colors.lemon, fontSize: 9, fontWeight: '800', letterSpacing: 1.2 },
-  heroTitle: { color: colors.paper, fontSize: 30, fontWeight: '800', letterSpacing: -0.9, marginTop: 9 },
-  heroText: { color: '#E2E9E4', fontSize: 13, lineHeight: 19, marginTop: 6 },
-  lemonArt: { position: 'absolute', right: -2, top: 21, width: 110, height: 110, borderRadius: 55, backgroundColor: '#66786F', alignItems: 'center', justifyContent: 'center', transform: [{ rotate: '-18deg' }] },
-  lemonEmoji: { fontSize: 58 },
-  lemonLeaf: { position: 'absolute', color: colors.lemon, fontSize: 25, right: 22, top: 1 },
-  location: { color: '#E4EBE7', fontSize: 11, fontWeight: '600', marginTop: 15 },
+  hero: { backgroundColor: colors.green, borderRadius: 22, padding: 20 },
+  heroTitle: { color: colors.lemon, fontSize: 32, fontWeight: '800', letterSpacing: -0.9 },
+  heroLocation: { color: colors.paper, fontSize: 20, fontWeight: '600', marginTop: 2 },
+  heroRow: { flexDirection: 'row', alignItems: 'center', gap: 16, marginTop: 14 },
+  heroText: { flex: 1, color: '#E2E9E4', fontSize: 13, lineHeight: 19 },
+  heroImage: { width: 108, height: 138, borderRadius: 16 },
   searchWrap: { height: 49, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, gap: 10, backgroundColor: colors.paper, borderRadius: 15, borderWidth: 1, borderColor: colors.line, marginTop: 14 },
   searchIcon: { color: colors.green, fontSize: 24, lineHeight: 28 },
   searchInput: { flex: 1, height: 47, color: colors.ink, fontSize: 14 },
@@ -139,7 +135,7 @@ const styles = StyleSheet.create({
   sectionTitle: { color: colors.ink, fontSize: 20, fontWeight: '800', letterSpacing: -0.4 },
   sectionCaption: { color: colors.muted, fontSize: 12, marginTop: 4 },
   itemCount: { color: colors.green, fontSize: 9, fontWeight: '800', letterSpacing: 1 },
-  chips: { flexDirection: 'row', gap: 8, marginBottom: 5 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 5 },
   chip: { paddingHorizontal: 14, height: 35, justifyContent: 'center', borderRadius: 18, backgroundColor: '#ECEAE2' },
   chipSelected: { backgroundColor: colors.green },
   chipText: { color: colors.ink, fontSize: 12, fontWeight: '700' },

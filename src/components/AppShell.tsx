@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, type Href } from 'expo-router';
 import { useAppData } from '../context/AppDataContext';
 import { colors, spacing } from '../theme';
+import { BrandMark } from './BrandMark';
 
 type Props = PropsWithChildren<{
   active: 'home' | 'profile';
@@ -30,7 +31,7 @@ export function AppShell({ children, active, title, showBack = false }: Props) {
           <Text style={styles.headerIconText}>{showBack ? '‹' : '☰'}</Text>
         </Pressable>
         <View style={styles.brandLockup}>
-          <Text style={styles.brandName}>little lemon</Text>
+          <BrandMark size="small" />
           {title ? <Text style={styles.headerTitle}>{title}</Text> : null}
         </View>
         <Pressable accessibilityRole="button" accessibilityLabel="Open profile" style={styles.avatar} onPress={() => navigate('/profile')}>
@@ -61,7 +62,7 @@ export function AppShell({ children, active, title, showBack = false }: Props) {
             </View>
             <View style={styles.drawerFooter}>
               <Text style={styles.drawerFooterText}>Table for one? Always welcome.</Text>
-              <Pressable accessibilityRole="button" onPress={async () => { setDrawerOpen(false); await logout(); router.replace('/onboarding'); }} style={styles.logoutButton}>
+              <Pressable accessibilityRole="button" onPress={async () => { setDrawerOpen(false); await logout(); }} style={styles.logoutButton}>
                 <Text style={styles.logoutText}>Log out</Text>
               </Pressable>
             </View>
@@ -88,7 +89,6 @@ const styles = StyleSheet.create({
   headerIcon: { width: 42, height: 42, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.canvas },
   headerIconText: { color: colors.green, fontSize: 24, lineHeight: 28, fontWeight: '700' },
   brandLockup: { flex: 1, gap: 1 },
-  brandName: { color: colors.green, fontSize: 21, fontWeight: '800', letterSpacing: -0.7 },
   headerTitle: { color: colors.muted, fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1.1 },
   avatar: { width: 42, height: 42, borderRadius: 21, backgroundColor: colors.lemon, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: colors.paper },
   avatarText: { color: colors.darkGreen, fontSize: 14, fontWeight: '800' },
